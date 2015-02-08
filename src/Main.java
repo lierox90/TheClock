@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+/*import java.awt.EventQueue;
 import java.io.IOException;
 
 import Display.*;
@@ -16,4 +16,4 @@ public class Main
 		Thread ClockThread = new Thread(clock);
 		FrameThread.start();
     }
-}
+}*/
