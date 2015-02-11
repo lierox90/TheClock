@@ -11,9 +11,12 @@ public class Clock implements Runnable
 	private SimpleDateFormat formatter;
 	private Date currentDate;
 	private boolean twentyOrTwelve = true;
-	
-	
 
+	public Clock()
+	{
+		currentDate = new Date();
+	}
+	
 	@Override
 	public void run() 
 	{	

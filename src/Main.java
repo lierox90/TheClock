@@ -11,7 +11,7 @@ public class Main
     public static void main(String[] args) throws IOException 
     {
     	clock = new Device();
-    	visualisation = new GUI();
+    	visualisation = new GUI(clock);
 		Thread FrameThread = new Thread(visualisation);
 		Thread ClockThread = new Thread(clock);
 		FrameThread.start();

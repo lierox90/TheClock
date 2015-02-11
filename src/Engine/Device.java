@@ -27,6 +27,11 @@ public class Device implements Runnable
 		StoperThread = new Thread(stoper);
 		DateThread = new Thread(date);
 	}
+	
+	public Clock getSoloClock()
+	{
+		return this.firstClock;
+	}
 
 	@Override
 	public void run()

@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import Engine.*;
+
 public class GUI extends JFrame implements Runnable
 {
 	//Inits
@@ -15,9 +17,10 @@ public class GUI extends JFrame implements Runnable
 	private dateJPanelClass datePane;
 	private stoperJPanelClass stoperPane;
 	private int currentSelectedPanel;
+	private Device device;
 	
 	//Constructor
-    public GUI() throws IOException 
+    public GUI(Device clock) throws IOException 
     {
     	//Window init
         super("TheClock");
@@ -27,11 +30,12 @@ public class GUI extends JFrame implements Runnable
         setVisible(true);
         setLayout(null);
         setLocationRelativeTo(null);
+        device = clock;
         //Var init
         currentSelectedPanel = 0;
         //Used Panels Init
     	alarmPane = new alarmJPanelClass(this);
-    	clockPane = new clockJPanelClass(this);
+    	clockPane = new clockJPanelClass(this,device.getSoloClock());
     	twoClockPane = new twoClocksJPanelClass(this);
     	datePane = new dateJPanelClass(this);
     	stoperPane = new stoperJPanelClass(this);
