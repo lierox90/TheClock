@@ -20,8 +20,8 @@ public class Date implements Runnable
 		// TODO Auto-generated method stub
 		
 	}
-	public String getFullDate(){
+/*	public String getFullDate(){
 		formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy", Locale.getDefault());
-	  }
+	  }*/
 
 }
