@@ -1,21 +1,14 @@
 package Engine;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.Locale;
 
-import javax.swing.Timer;
 
 public class Clock implements Runnable
 {
 	private int hours, minutes, seconds;
-	private String today;
-	private Calendar calendar;
-	private Formatter fmt;
+
 	private SimpleDateFormat formatter;
 	private Date currentDate;
 	
@@ -61,18 +54,4 @@ public class Clock implements Runnable
 	      hours = 21;
 	    }  
 	}
-	
-	  private String twelveHourFormat(){
-	    fmt = new Formatter();
-	    calendar = Calendar.getInstance();
-		today = fmt.format("%tr",calendar).toString();
-		return today;
-	  }
-	  
-	  private String twentyFourthHourFormat(){
-	    fmt = new Formatter();
-	    calendar = Calendar.getInstance();
-		today = fmt.format("%tT",calendar).toString();
-		return today;
-	  }
 }
