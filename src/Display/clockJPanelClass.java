@@ -1,6 +1,11 @@
 package Display;
 
-public class clockJPanelClass
-{
+import javax.swing.JPanel;
 
+public class clockJPanelClass extends JPanel
+{
+	public clockJPanelClass()
+	{
+		
+	}
 }

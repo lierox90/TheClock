@@ -1,6 +1,8 @@
 package Display;
 
-public class twoClocksJPanelClass
+import javax.swing.JPanel;
+
+public class twoClocksJPanelClass extends JPanel
 {
 
 }

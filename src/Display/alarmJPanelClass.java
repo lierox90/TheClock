@@ -1,6 +1,8 @@
 package Display;
 
-public class alarmJPanelClass
+import javax.swing.JPanel;
+
+public class alarmJPanelClass extends JPanel
 {
 
 }

@@ -1,6 +1,8 @@
 package Display;
 
-public class dateJPanelClass
+import javax.swing.JPanel;
+
+public class dateJPanelClass extends JPanel
 {
 
 }

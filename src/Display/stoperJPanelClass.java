@@ -1,6 +1,8 @@
 package Display;
 
-public class stoperJPanelClass
+import javax.swing.JPanel;
+
+public class stoperJPanelClass extends JPanel
 {
 
 }
