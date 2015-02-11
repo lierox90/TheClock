@@ -9,7 +9,6 @@ public class Date implements Runnable
 	private int year, month, day; 
 	private SimpleDateFormat formatter;
 	private Date currentDate;
-
 	
 
 	@Override
