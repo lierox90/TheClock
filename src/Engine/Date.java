@@ -2,22 +2,39 @@ package Engine;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Formatter;
 import java.util.Locale;
 
 public class Date implements Runnable
 {
 	private int year, month, day; 
-	private Calendar calendar;
 	private SimpleDateFormat formatter;
-	private Formatter fmt;
+	private Date currentDate;
+
 	
 
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
+		formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy", Locale.getDefault());
+		
+		formatter.applyPattern("d");
+	    try{
+	      day = Integer.parseInt(formatter.format(currentDate));
+	    } catch (NumberFormatException n){
+	      day = 23;
+	    }
+	    formatter.applyPattern("m");
+	    try{
+	      month = Integer.parseInt(formatter.format(currentDate));
+	    } catch (NumberFormatException n){
+	      month = 10;
+	    }    
+	    formatter.applyPattern("y");
+	    try{
+	      year = Integer.parseInt(formatter.format(currentDate));
+	    } catch (NumberFormatException n){
+	      year = 2015;
+	    }  
 		
 	}
 }
