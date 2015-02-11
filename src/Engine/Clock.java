@@ -10,7 +10,7 @@ public class Clock implements Runnable
 	private int hours, minutes, seconds;
 	private SimpleDateFormat formatter;
 	private Date currentDate;
-	private boolean twentyTOtwelve = true;
+	private boolean twentyOrTwelve = true;
 	
 	
 
@@ -29,6 +29,21 @@ public class Clock implements Runnable
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public boolean getHourFormat()
+	{
+		return this.twentyOrTwelve;
+	}
+	
+	public void set24()
+	{
+		this.twentyOrTwelve = true;
+	}
+	
+	public void set12()
+	{
+		this.twentyOrTwelve = false;
 	}
 	
 	private void incrementTime()
