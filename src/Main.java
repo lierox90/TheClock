@@ -15,5 +15,6 @@ public class Main
 		Thread FrameThread = new Thread(visualisation);
 		Thread ClockThread = new Thread(clock);
 		FrameThread.start();
+		//ClockThread.start();
     }
 }
