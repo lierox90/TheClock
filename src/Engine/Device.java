@@ -27,10 +27,10 @@ public class Device implements Runnable
 		StoperThread = new Thread(stoper);
 		DateThread = new Thread(date);
 	}
-	
-	public Clock getSoloClock()
+
+	public Clock getClock()
 	{
-		return this.firstClock;
+		return Device.firstClock;
 	}
 
 	@Override

@@ -1,20 +1,24 @@
 package Engine;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-
 
 public class Clock implements Runnable
 {
 	private int hours, minutes, seconds;
-	private SimpleDateFormat formatter;
+	private DateFormat formatter;
 	private Date currentDate;
 	private boolean twentyOrTwelve = true;
 
 	public Clock()
 	{
 		currentDate = new Date();
+	}
+	
+	public Clock getInstance()
+	{
+		return this;
 	}
 	
 	@Override
@@ -40,7 +44,7 @@ public class Clock implements Runnable
 		return this.seconds;
 	}
 	
-	public int getMinuts()
+	public int getMinutes()
 	{
 		return this.minutes;
 	}
@@ -81,34 +85,34 @@ public class Clock implements Runnable
 	    if(this.hours == 24)
 	    { 
 	    	  this.hours = 0;
-	    }	
+	    }
 	}
 	
 	private void getTime()
 	{
-		formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy", Locale.getDefault());
-		
-		formatter.applyPattern("s");
+		System.out.println();
+
 	    try
 	    {
+	    	formatter = new SimpleDateFormat("ss");
 	    	seconds = Integer.parseInt(formatter.format(currentDate));
 	    } 
 	    catch (NumberFormatException n)
 	    {
 	    	seconds = 25;
 	    }
-	    formatter.applyPattern("m");
 	    try
 	    {
+	    	formatter = new SimpleDateFormat("mm");
 	    	minutes = Integer.parseInt(formatter.format(currentDate));
 	    } 
 	    catch (NumberFormatException n)
 	    {
 	    	minutes = 10;
-	    }    
-	    formatter.applyPattern("h");
+	    }
 	    try
 	    {
+	    	formatter = new SimpleDateFormat("hh");
 	    	hours = Integer.parseInt(formatter.format(currentDate));
 	    } 
 	    catch (NumberFormatException n)

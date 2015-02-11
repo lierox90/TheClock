@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import Engine.Clock;
 
-public class clockJPanelClass extends JPanel
+public class clockJPanelClass extends JPanel implements Runnable
 {
 	private GUI parent;
 	private Clock soloClock;
@@ -51,11 +51,30 @@ public class clockJPanelClass extends JPanel
 		this.buttonB.setFocusable(false);
 		this.add(buttonB);
 		//Hours Label
+		//System.out.println("H - "+soloClock.getHours());
 		hoursLabel = new JLabel();
-		
+		hoursLabel.setBounds(10, 10, 60, 60);
+		this.add(hoursLabel);
 		//Minutes Label
+		//System.out.println("M - "+soloClock.getMinutes());
 		minutesLabel = new JLabel();
+		minutesLabel.setBounds(80, 10, 60, 60);
+		this.add(minutesLabel);
 		//Seconds Label
+		//System.out.println("S - "+soloClock.getSeconds());
 		secondsLabel = new JLabel();
+		secondsLabel.setBounds(130, 10, 60, 60);
+		this.add(secondsLabel);
+	}
+
+	@Override
+	public void run()
+	{
+		while(true)
+		{
+			hoursLabel.setText(Integer.toString(soloClock.getHours()));
+			minutesLabel.setText(Integer.toString(soloClock.getMinutes()));
+			secondsLabel.setText(Integer.toString(soloClock.getSeconds()));
+		}
 	}
 }
