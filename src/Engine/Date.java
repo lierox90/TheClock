@@ -1,17 +1,18 @@
 package Engine;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Formatter;
+import java.util.Locale;
 
 public class Date implements Runnable
 {
-	
+	private int year, month, day; 
 	private Calendar calendar;
 	private SimpleDateFormat formatter;
-	private Date currentDate;
 	private Formatter fmt;
+	
 
 	@Override
 	public void run()
@@ -20,9 +21,7 @@ public class Date implements Runnable
 		
 	}
 	public String getFullDate(){
-	    fmt = new Formatter();
-		calendar = Calendar.getInstance();
-		return fmt.format("%1$tA %1$td %1$tB %1$tY",calendar).toString();
+		formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy", Locale.getDefault());
 	  }
 
 }
