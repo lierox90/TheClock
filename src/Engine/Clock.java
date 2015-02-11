@@ -8,7 +8,6 @@ import java.util.Locale;
 public class Clock implements Runnable
 {
 	private int hours, minutes, seconds;
-
 	private SimpleDateFormat formatter;
 	private Date currentDate;
 	private boolean twentyTOtwelve = true;
@@ -18,18 +17,37 @@ public class Clock implements Runnable
 	@Override
 	public void run() 
 	{		
-		seconds++;
-		if(seconds == 60){ 
-	      seconds = 0; 
-	      minutes++; 
-		  if(minutes == 60){ 
-	        minutes = 0;
-	        hours++;		
-		  }	
-	      if(hours == 24){ 
-	        hours = 0;
-	      }		 
+		while(true)
+		{
+			incrementTime();
+			try 
+			{
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
 		}
+	}
+	
+	private void incrementTime()
+	{
+		this.seconds++;
+		if(this.seconds == 60)
+		{ 
+			this.seconds = 0; 
+			this.minutes++;
+		}
+		if(this.minutes == 60)
+		{ 
+			  this.minutes = 0;
+			  this.hours++;		
+		}	
+	    if(this.hours == 24)
+	    { 
+	    	  this.hours = 0;
+	    }	
 	}
 	
 	private void getTime()
@@ -37,22 +55,31 @@ public class Clock implements Runnable
 		formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy", Locale.getDefault());
 		
 		formatter.applyPattern("s");
-	    try{
-	      seconds = Integer.parseInt(formatter.format(currentDate));
-	    } catch (NumberFormatException n){
-	      seconds = 25;
+	    try
+	    {
+	    	seconds = Integer.parseInt(formatter.format(currentDate));
+	    } 
+	    catch (NumberFormatException n)
+	    {
+	    	seconds = 25;
 	    }
 	    formatter.applyPattern("m");
-	    try{
-	      minutes = Integer.parseInt(formatter.format(currentDate));
-	    } catch (NumberFormatException n){
-	      minutes = 10;
+	    try
+	    {
+	    	minutes = Integer.parseInt(formatter.format(currentDate));
+	    } 
+	    catch (NumberFormatException n)
+	    {
+	    	minutes = 10;
 	    }    
 	    formatter.applyPattern("h");
-	    try{
-	      hours = Integer.parseInt(formatter.format(currentDate));
-	    } catch (NumberFormatException n){
-	      hours = 21;
+	    try
+	    {
+	    	hours = Integer.parseInt(formatter.format(currentDate));
+	    } 
+	    catch (NumberFormatException n)
+	    {
+	    	hours = 21;
 	    }  
 	}
 }
