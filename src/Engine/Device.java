@@ -31,11 +31,11 @@ public class Device implements Runnable
 	@Override
 	public void run()
 	{
-		AlarmThread.start();
+		//AlarmThread.start();
 		FirstClockThread.start();
-		SecondClockThread.start();
-		StoperThread.start();
-		DateThread.start();
+		//SecondClockThread.start();
+		//StoperThread.start();
+		//DateThread.start();
 	}
 
 }

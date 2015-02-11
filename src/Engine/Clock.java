@@ -16,7 +16,8 @@ public class Clock implements Runnable
 
 	@Override
 	public void run() 
-	{		
+	{	
+		getTime();
 		while(true)
 		{
 			incrementTime();
@@ -29,6 +30,21 @@ public class Clock implements Runnable
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public int getSeconds()
+	{
+		return this.seconds;
+	}
+	
+	public int getMinuts()
+	{
+		return this.minutes;
+	}
+	
+	public int getHours()
+	{
+		return this.hours;
 	}
 	
 	public boolean getHourFormat()
