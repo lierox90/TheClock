@@ -1,6 +1,6 @@
 package Engine;
 
-public class Clock
+public class Stoper
 {
 
 }
