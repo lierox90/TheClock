@@ -6,8 +6,8 @@ import Engine.*;
 
 public class Main 
 {
-	static GUI visualisation;
-	static Runnable clock;
+	static private GUI visualisation;
+	static private Device clock;
     public static void main(String[] args) throws IOException 
     {
     	clock = new Device();
