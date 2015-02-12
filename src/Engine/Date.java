@@ -11,29 +11,60 @@ public class Date implements Runnable
 	private Date currentDate;
 	
 
+	public Date()
+	{
+		currentDate = new Date();
+	}
+	
+	public Date getInstance()
+	{
+		return this;
+	}
+	
 	@Override
 	public void run()
 	{
+		
+		
+	}
+	
+	public int getDays()
+	{
+		return this.day;
+	}
+	
+	public int getMonths()
+	{
+		return this.month;
+	}
+	
+	public int getYears()
+	{
+		return this.year;
+	}
+	
+	private void getDate()
+	{
 		formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy", Locale.getDefault());
 		
-		formatter.applyPattern("d");
+		formatter.applyPattern("dd");
 	    try{
 	      day = Integer.parseInt(formatter.format(currentDate));
 	    } catch (NumberFormatException n){
 	      day = 23;
 	    }
-	    formatter.applyPattern("m");
+	    formatter.applyPattern("MMM");
 	    try{
 	      month = Integer.parseInt(formatter.format(currentDate));
 	    } catch (NumberFormatException n){
 	      month = 10;
 	    }    
-	    formatter.applyPattern("y");
+	    formatter.applyPattern("yyyy");
 	    try{
 	      year = Integer.parseInt(formatter.format(currentDate));
 	    } catch (NumberFormatException n){
 	      year = 2015;
 	    }  
-		
 	}
+	
 }

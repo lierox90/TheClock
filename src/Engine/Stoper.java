@@ -26,11 +26,11 @@ class Stoper implements Runnable
 	  }
 
 
-	  //czas ktory minal z 1 milisekunda
+	  //czas ktory minal z 1/100 milisekunda
 	  private long getElapsedTime() {
 	    long elapsed;
 	    if (running) {
-	      elapsed = (System.currentTimeMillis() - startTime);
+	      elapsed = ((System.currentTimeMillis() - startTime) / 10);
 	    }
 	    else {
 	      elapsed = (stopTime - startTime);
@@ -39,7 +39,7 @@ class Stoper implements Runnable
 	  }
 
 
-	  //czas ktory minal z krokiem sekunda
+	  //czas ktory minal z krokiem w 1 sekunde
 	  private long getElapsedTimeSecs() {
 	    long elapsed;
 	    if (running) {
