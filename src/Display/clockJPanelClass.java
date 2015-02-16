@@ -32,6 +32,7 @@ public class clockJPanelClass extends JPanel implements Runnable
 		public void actionPerformed(ActionEvent e) 
 		{
 			settingMode = true;
+			pressTimer.stop();
 	    }
 	});
 	private Timer blinkTimer = new Timer(1000, new ActionListener() 
@@ -145,38 +146,22 @@ public class clockJPanelClass extends JPanel implements Runnable
             	{
             		pressTimer.start();
             	}
-            	else
-            	{
-            		clockSettingsPosition++;
-            		System.out.println("CSP - "+clockSettingsPosition);
-            	}	
 		    }
 		 
 		    @Override
 		    public void mouseReleased(MouseEvent e) 
 		    {
 		    	pressTimer.stop();
-            	if(!settingMode)
-            	{
-            		
-            	}
-            	else
-            	{
-            		
-            	}	
 		    }
 		});
 		this.buttonB.addActionListener(new ActionListener() 
 		{
             public void actionPerformed(ActionEvent e)
             {
-            	if(!settingMode)
+            	if(settingMode)
             	{
-            		
-            	}
-            	else
-            	{
-            		
+            		clockSettingsPosition++;
+            		System.out.println("CSP - "+clockSettingsPosition);
             	}
             }
         });
