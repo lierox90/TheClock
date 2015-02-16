@@ -153,7 +153,7 @@ public class Clock implements Runnable
 	    }
 	    try
 	    {
-	    	formatter = new SimpleDateFormat("hh");
+	    	formatter = new SimpleDateFormat("HH");
 	    	hours = Integer.parseInt(formatter.format(currentDate));
 	    } 
 	    catch (NumberFormatException n)
