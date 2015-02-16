@@ -12,6 +12,7 @@ public class alarmJPanelClass extends JPanel
 	private GUI parent;
 	private JButton buttonA;
 	private JButton buttonB;
+	private boolean settingMode = false;
 	
 	public alarmJPanelClass(GUI gui)
 	{
@@ -26,7 +27,14 @@ public class alarmJPanelClass extends JPanel
 		{
             public void actionPerformed(ActionEvent e)
             {
-            	parent.swapSelectedPanel();
+            	if(!settingMode)
+            	{
+            		parent.swapSelectedPanel();
+            	}
+            	else
+            	{
+            		
+            	}
             }
         });
 		this.buttonA.setFocusable(false);
@@ -38,6 +46,7 @@ public class alarmJPanelClass extends JPanel
 		{
             public void actionPerformed(ActionEvent e)
             {
+            	
             }
         });
 		this.buttonB.setFocusable(false);
