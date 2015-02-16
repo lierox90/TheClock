@@ -1,22 +1,22 @@
 package Engine;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Date;
 
-public class Date implements Runnable
+public class ClockDate implements Runnable
 {
 	private int year, month, day; 
 	private SimpleDateFormat formatter;
 	private Date currentDate;
 	
 
-	public Date()
+	public ClockDate()
 	{
 		currentDate = new Date();
 	}
 	
-	public Date getInstance()
+	public ClockDate getInstance()
 	{
 		return this;
 	}
