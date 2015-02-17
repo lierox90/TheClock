@@ -23,10 +23,12 @@ public class clockJPanelClass extends JPanel implements Runnable
 	private JLabel hoursLabel;
 	private JLabel minutesLabel;
 	private JLabel secondsLabel;
+	private JLabel amLabel;
+	private JLabel pmLabel;
 	private boolean settingMode = false;
+	private boolean amMode = true;
 	private int clockSettingsPosition = 0;
-	private int updateCounter = 0;
-	private Toolkit toolkit = Toolkit.getDefaultToolkit();
+	private int clockModePosition = 0;
 	private Timer pressTimer = new Timer(500, new ActionListener() 
 	{
 		public void actionPerformed(ActionEvent e) 
@@ -85,6 +87,46 @@ public class clockJPanelClass extends JPanel implements Runnable
 	        		}
 	    			break;
 	    		}
+	        	case 3:
+	    		{
+	    			if(!hoursLabel.isVisible())
+		        	{
+	        			hoursLabel.setVisible(true);
+		        	}
+	    			if(soloClock.getHourFormat())
+	    			{
+	    				pmLabel.setVisible(false);
+    					amLabel.setVisible(false);
+	    			}
+	    			else
+	    			{
+	    				if(amMode)
+	    				{
+	    					pmLabel.setVisible(false);
+	    					if(amLabel.isVisible())
+	    					{
+	    						amLabel.setVisible(false);
+	    					}
+	    					else
+	    					{
+	    						amLabel.setVisible(true);
+	    					}
+	    				}
+	    				else
+	    				{
+	    					amLabel.setVisible(false);
+	    					if(pmLabel.isVisible())
+	    					{
+	    						pmLabel.setVisible(false);
+	    					}
+	    					else
+	    					{
+	    						pmLabel.setVisible(true);
+	    					}
+	    				}
+	    			}
+	    			break;
+	    		}	
 	        	default:
 	    		{
 	    			if(!secondsLabel.isVisible())
@@ -99,6 +141,24 @@ public class clockJPanelClass extends JPanel implements Runnable
 		        	{
 	        			hoursLabel.setVisible(true);
 		        	}
+	    			if(!soloClock.getHourFormat())
+	    			{
+	    				if(amMode)
+	    				{
+	    					amLabel.setVisible(true);
+	    					pmLabel.setVisible(false);
+	    				}
+	    				else
+	    				{
+	    					pmLabel.setVisible(true);
+	    					amLabel.setVisible(false);
+	    				}
+	    			}
+	    			else
+	    			{
+	    				pmLabel.setVisible(false);
+    					amLabel.setVisible(false);
+	    			}
 	    			settingMode = false;
 	    			clockSettingsPosition=0;
 	    			blinkTimer.stop();
@@ -128,6 +188,14 @@ public class clockJPanelClass extends JPanel implements Runnable
             	}
             	else
             	{
+            		if(clockSettingsPosition == 3)
+            		{
+            			clockModePosition++;
+            			if(clockModePosition == 3)
+            			{
+            				clockModePosition = 0;
+            			}
+            		}
             		increaseSelectedByOne();
             	}
             }
@@ -161,7 +229,6 @@ public class clockJPanelClass extends JPanel implements Runnable
             	if(settingMode)
             	{
             		clockSettingsPosition++;
-            		System.out.println("CSP - "+clockSettingsPosition);
             	}
             }
         });
@@ -179,6 +246,16 @@ public class clockJPanelClass extends JPanel implements Runnable
 		secondsLabel = new JLabel();
 		secondsLabel.setBounds(130, 10, 60, 60);
 		this.add(secondsLabel);
+		//AM Label
+		amLabel = new JLabel("AM");
+		amLabel.setBounds(130, 50, 60, 60);
+		amLabel.setVisible(false);
+		this.add(amLabel);
+		//PM Label
+		pmLabel = new JLabel("PM");
+		pmLabel.setBounds(130, 70, 60, 60);
+		pmLabel.setVisible(false);
+		this.add(pmLabel);
 	}
 
 	private void increaseSelectedByOne()
@@ -200,6 +277,30 @@ public class clockJPanelClass extends JPanel implements Runnable
     			soloClock.incHours();
     			break;
     		}
+        	case 3:
+    		{
+    			switch (clockModePosition)
+    	    	{
+    	        	case 0:
+    	        	{	
+    	        		soloClock.set24();
+    	        		break;
+    	        	}
+    	        	case 1:
+    	    		{
+    	    			amMode = true;
+    	    			soloClock.set12();
+    	    			break;
+    	    		}
+    	        	case 2:
+    	    		{
+    	    			amMode = false;
+        	    		soloClock.set12();
+    	    			break;
+    	    		}
+    	    	}
+    			break;
+    		}
     	}
 	}
 
@@ -212,7 +313,14 @@ public class clockJPanelClass extends JPanel implements Runnable
 			{
 				blinkTimer.start();
 			}
-			hoursLabel.setText(Integer.toString(soloClock.getHours()));
+			if(soloClock.getMode())
+			{
+				hoursLabel.setText(Integer.toString(soloClock.getHours()));
+			}
+			else
+			{
+				hoursLabel.setText(Integer.toString(soloClock.getHours()-12));
+			}
 			minutesLabel.setText(Integer.toString(soloClock.getMinutes()));
 			secondsLabel.setText(Integer.toString(soloClock.getSeconds()));
 		}

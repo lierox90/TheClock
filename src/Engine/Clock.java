@@ -80,6 +80,11 @@ public class Clock implements Runnable
 	    }
 	}
 	
+	public boolean getMode()
+	{
+		return this.twentyOrTwelve;
+	}
+	
 	public int getSeconds()
 	{
 		return this.seconds;
