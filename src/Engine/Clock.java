@@ -21,23 +21,6 @@ public class Clock implements Runnable
 		return this;
 	}
 	
-	@Override
-	public void run() 
-	{	
-		getTime();
-		while(true)
-		{
-			incrementTime();
-			try 
-			{
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-	}
 	public void incSeconds()
 	{
 		this.seconds++;
@@ -165,5 +148,23 @@ public class Clock implements Runnable
 	    {
 	    	hours = 21;
 	    }  
+	}
+	
+	@Override
+	public void run() 
+	{	
+		getTime();
+		while(true)
+		{
+			incrementTime();
+			try 
+			{
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }

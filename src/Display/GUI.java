@@ -38,7 +38,7 @@ public class GUI extends JFrame implements Runnable
     	alarmPane = new alarmJPanelClass(this);
     	clockPane = new clockJPanelClass(this,device.getClock());
     	twoClockPane = new twoClocksJPanelClass(this);
-    	datePane = new dateJPanelClass(this);
+    	datePane = new dateJPanelClass(this,device.getDate());
     	stoperPane = new stoperJPanelClass(this);
     	//Threads
     	clockPaneThread = new Thread(clockPane);

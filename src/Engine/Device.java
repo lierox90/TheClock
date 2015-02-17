@@ -32,6 +32,11 @@ public class Device implements Runnable
 	{
 		return Device.firstClock;
 	}
+	
+	public ClockDate getDate()
+	{
+		return Device.date;
+	}
 
 	@Override
 	public void run()
