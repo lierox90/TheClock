@@ -63,7 +63,6 @@ public class GUI extends JFrame implements Runnable
     	{
     		currentSelectedPanel = 0;
     	}
-    	System.out.println("currentSelectedPanel = "+currentSelectedPanel);
     	switch (currentSelectedPanel)
     	{
         	case 0:

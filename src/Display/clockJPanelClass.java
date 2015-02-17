@@ -1,15 +1,23 @@
 package Display;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import Engine.Clock;
@@ -24,9 +32,15 @@ public class clockJPanelClass extends JPanel implements Runnable
 	private JLabel minutesLabel;
 	private JLabel secondsLabel;
 	private JLabel amLabel;
-	private JLabel pmLabel;
+	private BufferedImage onAlarmMarker;
+	private BufferedImage offAlarmMarker;
+	private BufferedImage onSoundMarker;
+	private BufferedImage offSoundMarker;
+	private JLabel alarmLabel;
+	private JLabel soundLabel;
 	private boolean settingMode = false;
 	private boolean amMode = true;
+	private boolean doOnce = true;
 	private int clockSettingsPosition = 0;
 	private int clockModePosition = 0;
 	private Timer pressTimer = new Timer(500, new ActionListener() 
@@ -34,6 +48,8 @@ public class clockJPanelClass extends JPanel implements Runnable
 		public void actionPerformed(ActionEvent e) 
 		{
 			settingMode = true;
+			doOnce=true;
+	    	System.out.println("BEEP - "+clockSettingsPosition);
 			pressTimer.stop();
 	    }
 	});
@@ -95,36 +111,27 @@ public class clockJPanelClass extends JPanel implements Runnable
 		        	}
 	    			if(soloClock.getHourFormat())
 	    			{
-	    				pmLabel.setVisible(false);
-    					amLabel.setVisible(false);
+    					amLabel.setText("");
 	    			}
 	    			else
 	    			{
 	    				if(amMode)
 	    				{
-	    					pmLabel.setVisible(false);
-	    					if(amLabel.isVisible())
-	    					{
-	    						amLabel.setVisible(false);
-	    					}
-	    					else
-	    					{
-	    						amLabel.setVisible(true);
-	    					}
+	    					amLabel.setText("AM");
 	    				}
 	    				else
 	    				{
-	    					amLabel.setVisible(false);
-	    					if(pmLabel.isVisible())
-	    					{
-	    						pmLabel.setVisible(false);
-	    					}
-	    					else
-	    					{
-	    						pmLabel.setVisible(true);
-	    					}
+	    					amLabel.setText("PM");
 	    				}
 	    			}
+ 					if(amLabel.isVisible())
+					{
+						amLabel.setVisible(false);
+					}
+					else
+					{
+						amLabel.setVisible(true);
+					}
 	    			break;
 	    		}	
 	        	default:
@@ -141,23 +148,24 @@ public class clockJPanelClass extends JPanel implements Runnable
 		        	{
 	        			hoursLabel.setVisible(true);
 		        	}
+	    			if(!amLabel.isVisible())
+		        	{
+	    				amLabel.setVisible(true);
+		        	}
 	    			if(!soloClock.getHourFormat())
 	    			{
 	    				if(amMode)
 	    				{
-	    					amLabel.setVisible(true);
-	    					pmLabel.setVisible(false);
+	    					amLabel.setText("AM");
 	    				}
 	    				else
 	    				{
-	    					pmLabel.setVisible(true);
-	    					amLabel.setVisible(false);
+	    					amLabel.setText("PM");
 	    				}
 	    			}
 	    			else
 	    			{
-	    				pmLabel.setVisible(false);
-    					amLabel.setVisible(false);
+	    				amLabel.setText("");
 	    			}
 	    			settingMode = false;
 	    			clockSettingsPosition=0;
@@ -175,9 +183,20 @@ public class clockJPanelClass extends JPanel implements Runnable
 		this.soloClock = clock;
 		this.setBounds(0, 0, 294, 171);
 		this.setBackground(new Color(123,153,23));
+        //Display Controls
+		try 
+	    {
+			onAlarmMarker = ImageIO.read(new File("src/res/alarmOn.png"));
+			offAlarmMarker = ImageIO.read(new File("src/res/alarmOff.png"));
+			onSoundMarker = ImageIO.read(new File("src/res/soundOn.png"));
+			offSoundMarker = ImageIO.read(new File("src/res/soundOff.png"));
+	    } 
+	    catch (IOException ex) 
+	    {
+	    }
 		//Button A
 		this.buttonA = new JButton("A");
-		this.buttonA.setBounds(224, 10, 60, 40);
+		this.buttonA.setBounds(160, 121, 60, 40);
 		this.buttonA.addActionListener(new ActionListener() 
 		{
             public void actionPerformed(ActionEvent e)
@@ -228,34 +247,54 @@ public class clockJPanelClass extends JPanel implements Runnable
             {
             	if(settingMode)
             	{
-            		clockSettingsPosition++;
+    		    	if(!doOnce)
+    		    	{
+                		clockSettingsPosition++;
+    		    	}
+    		    	doOnce=false;
             	}
             }
         });
 		this.buttonB.setFocusable(false);
 		this.add(buttonB);
+		//alarm Label
+		alarmLabel = new JLabel(new ImageIcon(offAlarmMarker));
+		alarmLabel.setBounds(10, 121, 40, 40);
+		alarmLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		this.add(alarmLabel);
+		//sound Label
+		soundLabel = new JLabel(new ImageIcon(offSoundMarker));
+		soundLabel.setBounds(60, 121, 40, 40);
+		soundLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		this.add(soundLabel);
 		//Hours Label
 		hoursLabel = new JLabel();
-		hoursLabel.setBounds(10, 10, 60, 60);
+		hoursLabel.setBounds(10, 10, 90, 90);
+		hoursLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		hoursLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		hoursLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
 		this.add(hoursLabel);
 		//Minutes Label
 		minutesLabel = new JLabel();
-		minutesLabel.setBounds(80, 10, 60, 60);
+		minutesLabel.setBounds(100, 10, 90, 90);
+		minutesLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		minutesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		minutesLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
 		this.add(minutesLabel);
 		//Seconds Label
 		secondsLabel = new JLabel();
-		secondsLabel.setBounds(130, 10, 60, 60);
+		secondsLabel.setBounds(190, 10, 90, 90);
+		secondsLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		secondsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		secondsLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
 		this.add(secondsLabel);
 		//AM Label
-		amLabel = new JLabel("AM");
-		amLabel.setBounds(130, 50, 60, 60);
-		amLabel.setVisible(false);
+		amLabel = new JLabel("");
+		amLabel.setBounds(110, 121, 40, 40);
+		amLabel.setVisible(true);
+		amLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		amLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(amLabel);
-		//PM Label
-		pmLabel = new JLabel("PM");
-		pmLabel.setBounds(130, 70, 60, 60);
-		pmLabel.setVisible(false);
-		this.add(pmLabel);
 	}
 
 	private void increaseSelectedByOne()
