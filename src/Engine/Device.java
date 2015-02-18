@@ -16,9 +16,8 @@ public class Device implements Runnable
 	
 	public Device()
 	{
-		alarm = new Alarm();
 		firstClock = new Clock(this);
-		//secondClock = new Clock();
+		alarm = new Alarm(firstClock);
 		stoper = new Stoper();
 		date = new ClockDate();
 		AlarmThread = new Thread(alarm);
@@ -47,11 +46,16 @@ public class Device implements Runnable
 	{
 		return Device.stoper;
 	}
+	
+	public Alarm getAlarm()
+	{
+		return Device.alarm;
+	}
 
 	@Override
 	public void run()
 	{
-		//AlarmThread.start();
+		AlarmThread.start();
 		FirstClockThread.start();
 		//SecondClockThread.start();
 		StoperThread.start();

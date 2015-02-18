@@ -5,6 +5,12 @@ public class Alarm implements Runnable
 	private int hours = 0, minutes = 0, seconds = 0;
 	private boolean isOn = false;
 	private boolean isSound = false;
+	private Clock soloClock;
+	
+	public Alarm(Clock clock)
+	{
+		this.soloClock = clock;
+	}
 	
 	public void incSeconds()
 	{
