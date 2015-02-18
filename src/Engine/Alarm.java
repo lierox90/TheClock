@@ -1,29 +1,71 @@
 package Engine;
 
-import java.awt.Toolkit;
-
 public class Alarm implements Runnable
 {
-
+	private int hours = 0, minutes = 0, seconds = 0;
+	private boolean isOn = false;
+	private boolean isSound = false;
+	
+	public void incSeconds()
+	{
+		this.seconds++;
+		if(this.seconds == 60)
+		{ 
+			this.seconds = 0;
+		}
+	}
+	
+	public void incMinutes()
+	{
+		this.minutes++;
+		if(this.minutes == 60)
+		{ 
+			this.minutes = 0;
+		}
+	}
+	
+	public void incHours()
+	{
+		this.hours++;
+		if(this.hours == 24)
+	    { 
+	    	  this.hours = 0;
+	    }
+	}
+	
+	public void setAlarmOn()
+	{
+		this.isOn = true;
+	}
+	
+	public void setAlarmOff()
+	{
+		this.isOn = false;
+	}
+	
+	public boolean isAlarmOn()
+	{
+		return this.isOn;
+	}
+	
+	public void setSoundOn()
+	{
+		this.isOn = true;
+	}
+	
+	public void setSoundOff()
+	{
+		this.isOn = false;
+	}
+	
+	public boolean isSoundOn()
+	{
+		return this.isSound;
+	}
+	
 	@Override
 	public void run()
 	{
-		for(;;)
-		{
-			/*if(alarm jest wlaczony)
-			{
-			    String currentTime = Clock.getInstance();
-		        String signalTime = czas na zegarku alarmowym;
-				if(signalTime.equals(currentTime))
-				{ 
-					for(int i=0;i<10;i++)
-					{		
-						Toolkit.getDefaultToolkit().beep();
-						Thread.sleep(300);
-					}
-				    break;		
-				}
-		    }*/
-		}
+		
 	}
 }
