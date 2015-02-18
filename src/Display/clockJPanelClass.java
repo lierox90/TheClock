@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import Engine.Clock;
+import Engine.Device;
 
 public class clockJPanelClass extends JPanel implements Runnable
 {
@@ -257,14 +258,16 @@ public class clockJPanelClass extends JPanel implements Runnable
 		this.buttonB.setFocusable(false);
 		this.add(buttonB);
 		//alarm Label
-		alarmLabel = new JLabel(new ImageIcon(offAlarmMarker));
+		alarmLabel = new JLabel();
 		alarmLabel.setBounds(10, 121, 40, 40);
 		alarmLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		alarmLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(alarmLabel);
 		//sound Label
-		soundLabel = new JLabel(new ImageIcon(offSoundMarker));
+		soundLabel = new JLabel();
 		soundLabel.setBounds(60, 121, 40, 40);
 		soundLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
+		soundLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(soundLabel);
 		//Hours Label
 		hoursLabel = new JLabel();
@@ -347,6 +350,24 @@ public class clockJPanelClass extends JPanel implements Runnable
 	{
 		while(true)
 		{
+			if( soloClock.isAlarmOn())
+			{
+				alarmLabel.setIcon(new ImageIcon(onAlarmMarker));
+			}
+			else
+			{
+				alarmLabel.setIcon(new ImageIcon(offAlarmMarker));
+			}
+			
+			if( soloClock.isAlarmOn())
+			{
+				soundLabel.setIcon(new ImageIcon(onSoundMarker));
+			}
+			else
+			{
+				soundLabel.setIcon(new ImageIcon(offSoundMarker));
+			}
+			
 			if(settingMode)
 			{
 				blinkTimer.start();

@@ -18,6 +18,36 @@ public class Clock implements Runnable
 		device = overDevice;
 	}
 	
+	public void setAlarmOn()
+	{
+		device.getAlarm().setAlarmOn();
+	}
+	
+	public void setAlarmOff()
+	{
+		device.getAlarm().setAlarmOff();
+	}
+	
+	public boolean isAlarmOn()
+	{
+		return device.getAlarm().isAlarmOn();
+	}
+	
+	public void setSoundOn()
+	{
+		device.getAlarm().setSoundOn();
+	}
+	
+	public void setSoundOff()
+	{
+		device.getAlarm().setSoundOff();
+	}
+	
+	public boolean isSoundOn()
+	{
+		return device.getAlarm().isSoundOn();
+	}
+	
 	public void incSeconds()
 	{
 		this.seconds++;
