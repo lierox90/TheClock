@@ -12,18 +12,18 @@ public class Stoper implements Runnable
 	public void run()
 	{
 		while(true)
-		{
-			if(running)
+		{	
+			if(isRunning())
 			{
 				incrementTime();
-				try 
-				{
-					Thread.sleep(10);
-				}
-				catch (InterruptedException e) 
-				{
-					e.printStackTrace();
-				}
+			}
+			try 
+			{
+				Thread.sleep(10);
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
 			}
 		}
 	}
@@ -52,6 +52,26 @@ public class Stoper implements Runnable
 	    }
 	}
 	
+	public int getHours()
+	{
+		return this.hours;
+	}
+	
+	public int getMinutes()
+	{
+		return this.minutes;
+	}
+	
+	public int getSeconds()
+	{
+		return this.seconds;
+	}
+	
+	public int getCentysecunds()
+	{
+		return this.centyseconds;
+	}
+	
 	public void start() 
 	{
 		this.running = true;
@@ -60,6 +80,11 @@ public class Stoper implements Runnable
 	public void stop() 
 	{
 		this.running = false;
+	}
+	
+	public boolean isRunning()
+	{
+		return this.running;
 	}
 	
 	public void reset()

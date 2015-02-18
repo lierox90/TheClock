@@ -126,6 +126,7 @@ public class GUI extends JFrame implements Runnable
 	{
 		clockPaneThread.start();
 		datePaneThread.start();
+		stoperPaneThread.start();
 		while(true)
 		{
 			repaint();
