@@ -26,12 +26,14 @@ public class dateJPanelClass extends JPanel implements Runnable
 	private JLabel daysLabel;
 	private ClockDate soloDate;
 	private boolean settingMode = false;
-	private int clockSettingsPosition = 0;
+	private boolean doOnce = true;
+	private int dateSettingsPosition = 0;
 	private Timer pressTimer = new Timer(500, new ActionListener() 
 	{
 		public void actionPerformed(ActionEvent e) 
 		{
 			settingMode = true;
+			doOnce=true;
 			pressTimer.stop();
 	    }
 	});
@@ -39,7 +41,7 @@ public class dateJPanelClass extends JPanel implements Runnable
 	{
 		public void actionPerformed(ActionEvent e) 
 		{
-			switch (clockSettingsPosition)
+			switch (dateSettingsPosition)
 	    	{
 	        	case 0:
 	        	{	
@@ -66,24 +68,12 @@ public class dateJPanelClass extends JPanel implements Runnable
 	        		}
 	    			break;
 	    		}
-	        	case 2:
-	    		{
-	    			monthsLabel.setVisible(true);
-	        		if(yearsLabel.isVisible())
-	        		{
-	        			yearsLabel.setVisible(false);
-	        		}
-	        		else
-	        		{
-	        			yearsLabel.setVisible(true);
-	        		}
-	    			break;
-	    		}
 	        	default:
 	    		{
 	    			daysLabel.setVisible(true);
 	    			monthsLabel.setVisible(true);
-	    			yearsLabel.setVisible(true);
+	    			settingMode = false;
+	    			dateSettingsPosition=0;
 	    			blinkTimer.stop();
 	    			break;
 	    		}
@@ -111,7 +101,7 @@ public class dateJPanelClass extends JPanel implements Runnable
             	}
             	else
             	{
-            		
+            		increaseSelectedByOne();
             	}
             }
         });
@@ -143,6 +133,11 @@ public class dateJPanelClass extends JPanel implements Runnable
             {
             	if(settingMode)
             	{
+    		    	if(!doOnce)
+    		    	{
+                		dateSettingsPosition++;
+    		    	}
+    		    	doOnce=false;
             	}
             }
         });
@@ -169,6 +164,23 @@ public class dateJPanelClass extends JPanel implements Runnable
 		daysLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		daysLabel.setFont(new Font("Calibri", Font.PLAIN, 40));
 		this.add(daysLabel);
+	}
+	
+	private void increaseSelectedByOne()
+	{
+		switch (dateSettingsPosition)
+    	{
+        	case 0:
+        	{	
+        		soloDate.incDay();
+        		break;
+        	}
+        	case 1:
+    		{
+    			soloDate.incMonth();
+    			break;
+    		}
+    	}
 	}
 
 	@Override

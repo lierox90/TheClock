@@ -10,15 +10,12 @@ public class Clock implements Runnable
 	private DateFormat formatter;
 	private Date currentDate;
 	private boolean twentyOrTwelve = true;
+	private Device device;
 
-	public Clock()
+	public Clock(Device overDevice)
 	{
 		currentDate = new Date();
-	}
-	
-	public Clock getInstance()
-	{
-		return this;
+		device = overDevice;
 	}
 	
 	public void incSeconds()
@@ -26,17 +23,7 @@ public class Clock implements Runnable
 		this.seconds++;
 		if(this.seconds == 60)
 		{ 
-			this.seconds = 0; 
-			this.minutes++;
-			if(this.minutes == 60)
-			{ 
-				this.minutes = 0;
-				this.hours++;
-				if(this.hours == 24)
-				{ 
-					this.hours = 0;
-				}
-			}
+			this.seconds = 0;
 		}
 	}
 	
@@ -46,11 +33,6 @@ public class Clock implements Runnable
 		if(this.minutes == 60)
 		{ 
 			this.minutes = 0;
-			this.hours++;
-			if(this.hours == 24)
-			{ 
-				this.hours = 0;
-			}
 		}
 	}
 	
@@ -114,6 +96,7 @@ public class Clock implements Runnable
 	    if(this.hours == 24)
 	    { 
 	    	  this.hours = 0;
+	    	  this.device.increaseDayDueToHours();
 	    }
 	}
 	
@@ -152,5 +135,17 @@ public class Clock implements Runnable
 	public void run() 
 	{	
 		getTime();
+		while(true)
+		{
+			incrementTime();
+			try 
+			{
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }

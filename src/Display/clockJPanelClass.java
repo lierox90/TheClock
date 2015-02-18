@@ -49,7 +49,6 @@ public class clockJPanelClass extends JPanel implements Runnable
 		{
 			settingMode = true;
 			doOnce=true;
-	    	System.out.println("BEEP - "+clockSettingsPosition);
 			pressTimer.stop();
 	    }
 	});

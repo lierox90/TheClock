@@ -17,8 +17,8 @@ public class Device implements Runnable
 	public Device()
 	{
 		alarm = new Alarm();
-		firstClock = new Clock();
-		secondClock = new Clock();
+		firstClock = new Clock(this);
+		//secondClock = new Clock();
 		stoper = new Stoper();
 		date = new ClockDate();
 		AlarmThread = new Thread(alarm);
@@ -26,6 +26,11 @@ public class Device implements Runnable
 		SecondClockThread = new Thread(secondClock);
 		StoperThread = new Thread(stoper);
 		DateThread = new Thread(date);
+	}
+	
+	public void increaseDayDueToHours()
+	{
+		date.incrementTime();
 	}
 
 	public Clock getClock()
