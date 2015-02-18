@@ -45,7 +45,7 @@ public class Device implements Runnable
 		FirstClockThread.start();
 		//SecondClockThread.start();
 		//StoperThread.start();
-		//DateThread.start();
+		DateThread.start();
 	}
 
 }

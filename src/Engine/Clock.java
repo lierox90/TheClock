@@ -119,9 +119,7 @@ public class Clock implements Runnable
 	
 	private void getTime()
 	{
-		System.out.println();
-
-	    try
+		try
 	    {
 	    	formatter = new SimpleDateFormat("ss");
 	    	seconds = Integer.parseInt(formatter.format(currentDate));
@@ -154,17 +152,5 @@ public class Clock implements Runnable
 	public void run() 
 	{	
 		getTime();
-		while(true)
-		{
-			incrementTime();
-			try 
-			{
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException e) 
-			{
-				e.printStackTrace();
-			}
-		}
 	}
 }

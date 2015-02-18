@@ -148,26 +148,26 @@ public class dateJPanelClass extends JPanel implements Runnable
         });
 		this.buttonB.setFocusable(false);
 		this.add(buttonB);
-		//Hours Label
+		//years Label
 		yearsLabel = new JLabel();
-		yearsLabel.setBounds(10, 10, 90, 90);
+		yearsLabel.setBounds(190, 10, 90, 90);
 		yearsLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
 		yearsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		yearsLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
+		yearsLabel.setFont(new Font("Calibri", Font.PLAIN, 40));
 		this.add(yearsLabel);
-		//Minutes Label
+		//months Label
 		monthsLabel = new JLabel();
 		monthsLabel.setBounds(100, 10, 90, 90);
 		monthsLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
 		monthsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		monthsLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
+		monthsLabel.setFont(new Font("Calibri", Font.PLAIN, 40));
 		this.add(monthsLabel);
-		//Seconds Label
+		//days Label
 		daysLabel = new JLabel();
-		daysLabel.setBounds(190, 10, 90, 90);
+		daysLabel.setBounds(10, 10, 90, 90);
 		daysLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
 		daysLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		daysLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
+		daysLabel.setFont(new Font("Calibri", Font.PLAIN, 40));
 		this.add(daysLabel);
 	}
 
@@ -181,7 +181,7 @@ public class dateJPanelClass extends JPanel implements Runnable
 				blinkTimer.start();
 			}
 			yearsLabel.setText(Integer.toString(soloDate.getYears()));
-			monthsLabel.setText(Integer.toString(soloDate.getMonths()));
+			monthsLabel.setText(soloDate.getMonthsN());
 			daysLabel.setText(Integer.toString(soloDate.getDays()));
 		}
 	}

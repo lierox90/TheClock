@@ -6,7 +6,8 @@ import java.util.Date;
 
 public class ClockDate implements Runnable
 {
-	private int year, month, day; 
+	private int year, month, day;
+	private String monthName;
 	private SimpleDateFormat formatter;
 	private Date currentDate;
 	
@@ -121,6 +122,11 @@ public class ClockDate implements Runnable
 		return this.month;
 	}
 	
+	public String getMonthsN()
+	{
+		return this.monthName;
+	}
+	
 	public int getYears()
 	{
 		return this.year;
@@ -128,21 +134,19 @@ public class ClockDate implements Runnable
 	
 	private void getDate()
 	{
-		formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy", Locale.getDefault());
-		
-		formatter.applyPattern("dd");
-	    try
+		try
 	    {
+	    	formatter = new SimpleDateFormat("dd");
 	    	day = Integer.parseInt(formatter.format(currentDate));
 	    } 
 	    catch (NumberFormatException n)
 	    {
-	    	day = 23;
+	    	day = 25;
 	    }
-	    
-	    formatter.applyPattern("MMM");
+		
 	    try
 	    {
+	    	formatter = new SimpleDateFormat("MM");
 	    	month = Integer.parseInt(formatter.format(currentDate));
 	    } 
 	    catch (NumberFormatException n)
@@ -150,32 +154,31 @@ public class ClockDate implements Runnable
 	    	month = 10;
 	    }
 	    
-	    formatter.applyPattern("yyyy");
 	    try
 	    {
+	    	formatter = new SimpleDateFormat("MMM");
+	    	monthName = formatter.format(currentDate);
+	    } 
+	    catch (NumberFormatException n)
+	    {
+	    	monthName = "Jan";
+	    }
+	    
+	    try
+	    {
+	    	formatter = new SimpleDateFormat("yyyy");
 	    	year = Integer.parseInt(formatter.format(currentDate));
 	    } 
 	    catch (NumberFormatException n)
 	    {
 	    	year = 2015;
-	    }  
+	    }
 	}
 	
 	@Override
 	public void run()
 	{
 		getDate();
-		while(true)
-		{
-			try 
-			{
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException e) 
-			{
-				e.printStackTrace();
-			}
-		}
 	}
 	
 }

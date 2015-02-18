@@ -354,14 +354,44 @@ public class clockJPanelClass extends JPanel implements Runnable
 			}
 			if(soloClock.getMode())
 			{
-				hoursLabel.setText(Integer.toString(soloClock.getHours()));
+				if(soloClock.getHours()<10)
+				{
+					hoursLabel.setText("0"+Integer.toString(soloClock.getHours()));
+				}
+				else
+				{
+					hoursLabel.setText(Integer.toString(soloClock.getHours()));
+				}
 			}
 			else
 			{
-				hoursLabel.setText(Integer.toString(soloClock.getHours()-12));
+				if((soloClock.getHours()-12)<10)
+				{
+					hoursLabel.setText("0"+(Integer.toString(soloClock.getHours()-12)));
+				}
+				else
+				{
+					hoursLabel.setText(Integer.toString(soloClock.getHours()-12));
+				}
 			}
-			minutesLabel.setText(Integer.toString(soloClock.getMinutes()));
-			secondsLabel.setText(Integer.toString(soloClock.getSeconds()));
+			
+			if(soloClock.getMinutes()<10)
+			{
+				minutesLabel.setText("0"+Integer.toString(soloClock.getMinutes()));
+			}
+			else
+			{
+				minutesLabel.setText(Integer.toString(soloClock.getMinutes()));
+			}
+			
+			if(soloClock.getSeconds()<10)
+			{
+				secondsLabel.setText("0"+Integer.toString(soloClock.getSeconds()));
+			}
+			else
+			{
+				secondsLabel.setText(Integer.toString(soloClock.getSeconds()));
+			}
 		}
 	}
 }

@@ -14,6 +14,7 @@ public class GUI extends JFrame implements Runnable
 	private alarmJPanelClass alarmPane;
 	private clockJPanelClass clockPane;
 	private Thread clockPaneThread;
+	private Thread datePaneThread;
 	private twoClocksJPanelClass twoClockPane;
 	private dateJPanelClass datePane;
 	private stoperJPanelClass stoperPane;
@@ -42,6 +43,7 @@ public class GUI extends JFrame implements Runnable
     	stoperPane = new stoperJPanelClass(this);
     	//Threads
     	clockPaneThread = new Thread(clockPane);
+    	datePaneThread = new Thread(datePane);
     	//Init visibility
     	alarmPane.setVisible(false);
     	clockPane.setVisible(true);
@@ -121,6 +123,7 @@ public class GUI extends JFrame implements Runnable
 	public void run()
 	{
 		clockPaneThread.start();
+		datePaneThread.start();
 		while(true)
 		{
 			repaint();
