@@ -14,10 +14,11 @@ public class GUI extends JFrame implements Runnable
 	private alarmJPanelClass alarmPane;
 	private clockJPanelClass clockPane;
 	private Thread clockPaneThread;
-	private Thread datePaneThread;
 	private twoClocksJPanelClass twoClockPane;
 	private dateJPanelClass datePane;
+	private Thread datePaneThread;
 	private stoperJPanelClass stoperPane;
+	private Thread stoperPaneThread;
 	private int currentSelectedPanel;
 	private Device device;
 	
@@ -40,10 +41,11 @@ public class GUI extends JFrame implements Runnable
     	clockPane = new clockJPanelClass(this,device.getClock());
     	twoClockPane = new twoClocksJPanelClass(this);
     	datePane = new dateJPanelClass(this,device.getDate());
-    	stoperPane = new stoperJPanelClass(this);
+    	stoperPane = new stoperJPanelClass(this,device.getStoper());
     	//Threads
     	clockPaneThread = new Thread(clockPane);
     	datePaneThread = new Thread(datePane);
+    	stoperPaneThread = new Thread(stoperPane);
     	//Init visibility
     	alarmPane.setVisible(false);
     	clockPane.setVisible(true);

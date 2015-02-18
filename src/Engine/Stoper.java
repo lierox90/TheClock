@@ -1,57 +1,74 @@
 package Engine;
 
-class Stoper implements Runnable
+public class Stoper implements Runnable
 {
-	private long startTime = 0;
-	private long stopTime = 0;
+	private int centyseconds = 0;
+	private int seconds = 0;
+	private int minutes = 0;
+	private int hours = 0;
 	private boolean running = false;
 
 	@Override
 	public void run()
 	{
-		
+		while(true)
+		{
+			if(running)
+			{
+				incrementTime();
+				try 
+				{
+					Thread.sleep(10);
+				}
+				catch (InterruptedException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
-	private void start() 
+	private void incrementTime()
 	{
-		this.startTime = System.currentTimeMillis();
+		this.centyseconds++;
+		if(this.centyseconds == 100)
+		{ 
+			this.centyseconds = 0; 
+			this.seconds++;
+		}
+		if(this.seconds == 60)
+		{ 
+			this.seconds = 0; 
+			this.minutes++;
+		}
+		if(this.minutes == 60)
+		{ 
+			  this.minutes = 0;
+			  this.hours++;		
+		}	
+	    if(this.hours == 24)
+	    { 
+	    	  this.hours = 0;
+	    }
+	}
+	
+	public void start() 
+	{
 		this.running = true;
 	}
 
-	private void stop() 
+	public void stop() 
 	{
-		this.stopTime = System.currentTimeMillis();
 		this.running = false;
 	}
 	
-	//czas ktory minal z 1/100 milisekunda
-	private long getElapsedTime()
+	public void reset()
 	{
-		long elapsed;
-		if (running) 
-		{
-			elapsed = ((System.currentTimeMillis() - startTime) / 10);
-		}
-		else 
-		{
-			elapsed = (stopTime - startTime) / 10;
-		}
-		return elapsed;
-	}
-
-	//czas ktory minal z krokiem w 1 sekunde
-	private long getElapsedTimeSecs() 
-	{
-		long elapsed;
-	  	if (running) 
-	  	{
-	  		elapsed = ((System.currentTimeMillis() - startTime) / 1000);
-	  	}
-	  	else 
-	  	{
-	  		elapsed = ((stopTime - startTime) / 1000);
-	  	}
-	  	return elapsed;
+		stop();
+		centyseconds = 0;
+		seconds = 0;
+		minutes = 0;
+		hours = 0;
 	}
 }
 

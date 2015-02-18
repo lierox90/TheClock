@@ -42,6 +42,11 @@ public class Device implements Runnable
 	{
 		return Device.date;
 	}
+	
+	public Stoper getStoper()
+	{
+		return Device.stoper;
+	}
 
 	@Override
 	public void run()
@@ -49,8 +54,7 @@ public class Device implements Runnable
 		//AlarmThread.start();
 		FirstClockThread.start();
 		//SecondClockThread.start();
-		//StoperThread.start();
+		StoperThread.start();
 		DateThread.start();
 	}
-
 }
