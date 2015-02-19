@@ -1,5 +1,7 @@
 package Engine;
 
+import Display.WindowShaker;
+
 public class Device implements Runnable
 {
 	private static Alarm alarm;
@@ -60,6 +62,11 @@ public class Device implements Runnable
 	public void stopAlarm()
 	{
 		Device.alarm.stopAlarm();
+	}
+	
+	public void passShaker(WindowShaker shaker)
+	{
+		Device.alarm.passShaker(shaker);
 	}
 
 	@Override

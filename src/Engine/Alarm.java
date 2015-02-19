@@ -1,5 +1,13 @@
 package Engine;
 
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+import Display.WindowShaker;
+
 public class Alarm implements Runnable
 {
 	private int hours = 0, minutes = 0;
@@ -9,10 +17,32 @@ public class Alarm implements Runnable
 	private boolean startAlarm = false;
 	private boolean amMode = true;
 	private Clock soloClock;
+	private WindowShaker windowShaker;
 	
 	public Alarm(Clock clock)
 	{
 		this.soloClock = clock;
+	}
+	
+	public static synchronized void playAlarmSound() 
+	{
+	    new Thread(new Runnable() 
+	    {
+	    	public void run() 
+	    	{
+		        try 
+		        {
+		        	Clip clip = AudioSystem.getClip();
+		        	AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("src/res/alarm.wav"));
+		        	clip.open(inputStream);
+		        	clip.start(); 
+		        } 
+		        catch (Exception e) 
+		        {
+		        	System.err.println(e.getMessage());
+		        }
+	    	}
+	    }).start();
 	}
 	
 	public void incMinutes()
@@ -54,7 +84,6 @@ public class Alarm implements Runnable
 	
 	public void setAlarmOn()
 	{
-		System.out.println("Alarm On");
 		this.isAlarm = true;
 	}
 	
@@ -70,7 +99,6 @@ public class Alarm implements Runnable
 	
 	public void setSoundOn()
 	{
-		System.out.println("Sound On");
 		this.isSound = true;
 	}
 	
@@ -124,6 +152,11 @@ public class Alarm implements Runnable
 		soundDurationCounter = 0;
 	}
 	
+	public void passShaker(WindowShaker shaker)
+	{
+		this.windowShaker = shaker;
+	}
+	
 	@Override
 	public void run()
 	{
@@ -150,20 +183,19 @@ public class Alarm implements Runnable
 				{
 					if(isSoundOn())
 					{
-						//play sound
-						System.out.println("Sound");
+						playAlarmSound();
 					}
 					
 					if(isAlarmOn())
 					{
-						//popup alarm
-						System.out.println("Popup");
+						windowShaker.startShake();
 					}
 				}
 				soundDurationCounter++;
-				if(soundDurationCounter > 600)
+				if(soundDurationCounter > 50)
 				{
 					startAlarm = false;
+					windowShaker.stopShake();
 					soundDurationCounter = 0;
 				}
 			}

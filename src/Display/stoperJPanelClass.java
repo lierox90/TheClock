@@ -6,7 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -32,9 +36,31 @@ public class stoperJPanelClass extends JPanel implements Runnable
 		{
 			doOnce=true;
 			soloStoper.reset();
+			playBeepSound();
 			pressTimer.stop();
 	    }
 	});
+	
+	public static synchronized void playBeepSound() 
+	{
+	    new Thread(new Runnable() 
+	    {
+	    	public void run() 
+	    	{
+		        try 
+		        {
+		        	Clip clip = AudioSystem.getClip();
+		        	AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("src/res/beep.wav"));
+		        	clip.open(inputStream);
+		        	clip.start(); 
+		        } 
+		        catch (Exception e) 
+		        {
+		        	System.err.println(e.getMessage());
+		        }
+	    	}
+	    }).start();
+	}
 	
 	public stoperJPanelClass(GUI gui,Stoper stoper)
 	{
@@ -65,6 +91,7 @@ public class stoperJPanelClass extends JPanel implements Runnable
             	if(soloStoper.isRunning())
             	{
             		System.out.println("Stoper dziala");
+            		playBeepSound();
             		soloStoper.stop();
             	}
             	else
@@ -72,7 +99,8 @@ public class stoperJPanelClass extends JPanel implements Runnable
     		    	if(!doOnce)
     		    	{
     		    		System.out.println("Stoper nie dziala");
-                		soloStoper.start();
+    		    		playBeepSound();
+    		    		soloStoper.start();
     		    	}
     		    	doOnce=false;
             	}

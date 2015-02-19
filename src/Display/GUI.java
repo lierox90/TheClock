@@ -16,12 +16,15 @@ public class GUI extends JFrame implements Runnable
 	private clockJPanelClass clockPane;
 	private Thread clockPaneThread;
 	private twoClocksJPanelClass twoClockPane;
+	private Thread twoClockPaneThread;
 	private dateJPanelClass datePane;
 	private Thread datePaneThread;
 	private stoperJPanelClass stoperPane;
 	private Thread stoperPaneThread;
 	private int currentSelectedPanel;
 	private Device device;
+	private WindowShaker shaker;
+	private Thread shakerThread;
 	
 	//Constructor
     public GUI(Device clock) throws IOException 
@@ -43,11 +46,15 @@ public class GUI extends JFrame implements Runnable
     	twoClockPane = new twoClocksJPanelClass(this);
     	datePane = new dateJPanelClass(this,device.getDate());
     	stoperPane = new stoperJPanelClass(this,device.getStoper());
+    	//Shaker
+    	shaker = new WindowShaker(this);
     	//Threads
     	clockPaneThread = new Thread(clockPane);
     	datePaneThread = new Thread(datePane);
     	stoperPaneThread = new Thread(stoperPane);
     	alarmPaneThread = new Thread(alarmPane);
+    	twoClockPaneThread = new Thread(twoClockPane);
+    	shakerThread = new Thread(shaker);
     	//Init visibility
     	alarmPane.setVisible(false);
     	clockPane.setVisible(true);
@@ -130,6 +137,8 @@ public class GUI extends JFrame implements Runnable
 		datePaneThread.start();
 		stoperPaneThread.start();
 		alarmPaneThread.start();
+		shakerThread.start();
+		device.passShaker(shaker);
 		while(true)
 		{
 			repaint();

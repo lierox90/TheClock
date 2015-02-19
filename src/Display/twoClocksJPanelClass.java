@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class twoClocksJPanelClass extends JPanel
+public class twoClocksJPanelClass extends JPanel implements Runnable
 {
 	private GUI parent;
 	private JButton buttonA;
@@ -42,5 +42,12 @@ public class twoClocksJPanelClass extends JPanel
         });
 		this.buttonB.setFocusable(false);
 		this.add(buttonB);
+	}
+
+	@Override
+	public void run()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
