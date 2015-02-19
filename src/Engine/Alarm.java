@@ -4,7 +4,7 @@ public class Alarm implements Runnable
 {
 	private int hours = 0, minutes = 0;
 	private int soundDurationCounter=0;
-	private boolean isOn = false;
+	private boolean isAlarm = false;
 	private boolean isSound = false;
 	private boolean startAlarm = false;
 	private boolean amMode = true;
@@ -54,27 +54,29 @@ public class Alarm implements Runnable
 	
 	public void setAlarmOn()
 	{
-		this.isOn = true;
+		System.out.println("Alarm On");
+		this.isAlarm = true;
 	}
 	
 	public void setAlarmOff()
 	{
-		this.isOn = false;
+		this.isAlarm = false;
 	}
 	
 	public boolean isAlarmOn()
 	{
-		return this.isOn;
+		return this.isAlarm;
 	}
 	
 	public void setSoundOn()
 	{
-		this.isOn = true;
+		System.out.println("Sound On");
+		this.isSound = true;
 	}
 	
 	public void setSoundOff()
 	{
-		this.isOn = false;
+		this.isSound = false;
 	}
 	
 	public boolean isSoundOn()
@@ -144,7 +146,7 @@ public class Alarm implements Runnable
 			}
 			if(startAlarm)
 			{
-				if(soundDurationCounter%10 == 0)
+				if((soundDurationCounter%10) == 0)
 				{
 					if(isSoundOn())
 					{

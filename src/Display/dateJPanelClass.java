@@ -37,7 +37,7 @@ public class dateJPanelClass extends JPanel implements Runnable
 			pressTimer.stop();
 	    }
 	});
-	private Timer blinkTimer = new Timer(1000, new ActionListener() 
+	private Timer blinkTimer = new Timer(500, new ActionListener() 
 	{
 		public void actionPerformed(ActionEvent e) 
 		{
