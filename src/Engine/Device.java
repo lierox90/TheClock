@@ -6,7 +6,7 @@ public class Device implements Runnable
 {
 	private static Alarm alarm;
 	private static Clock firstClock;
-	private static Clock secondClock;
+	private static SecondClock secondClock;
 	private static Stoper stoper;
 	private static ClockDate date;
 	private Thread AlarmThread;
@@ -19,6 +19,7 @@ public class Device implements Runnable
 	public Device()
 	{
 		firstClock = new Clock(this);
+		secondClock = new SecondClock(this);
 		alarm = new Alarm(firstClock);
 		stoper = new Stoper();
 		date = new ClockDate();
@@ -37,6 +38,11 @@ public class Device implements Runnable
 	public Clock getClock()
 	{
 		return Device.firstClock;
+	}
+	
+	public SecondClock get2ndClock()
+	{
+		return Device.secondClock;
 	}
 	
 	public ClockDate getDate()
@@ -74,7 +80,7 @@ public class Device implements Runnable
 	{
 		AlarmThread.start();
 		FirstClockThread.start();
-		//SecondClockThread.start();
+		SecondClockThread.start();
 		StoperThread.start();
 		DateThread.start();
 	}

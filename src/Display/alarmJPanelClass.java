@@ -245,14 +245,14 @@ public class alarmJPanelClass extends JPanel implements Runnable
 		hoursLabel.setBounds(30, 10, 90, 90);
 		hoursLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
 		hoursLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		hoursLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
+		hoursLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
 		this.add(hoursLabel);
 		//Minutes Label
 		minutesLabel = new JLabel();
 		minutesLabel.setBounds(170, 10, 90, 90);
 		minutesLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
 		minutesLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		minutesLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
+		minutesLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
 		this.add(minutesLabel);
 	}
 	

@@ -43,7 +43,7 @@ public class GUI extends JFrame implements Runnable
         //Used Panels Init
     	alarmPane = new alarmJPanelClass(this,device.getClock(),device.getAlarm());
     	clockPane = new clockJPanelClass(this,device.getClock());
-    	twoClockPane = new twoClocksJPanelClass(this);
+    	twoClockPane = new twoClocksJPanelClass(this,device.getClock(),device.get2ndClock());
     	datePane = new dateJPanelClass(this,device.getDate());
     	stoperPane = new stoperJPanelClass(this,device.getStoper());
     	//Shaker
@@ -138,6 +138,7 @@ public class GUI extends JFrame implements Runnable
 		stoperPaneThread.start();
 		alarmPaneThread.start();
 		shakerThread.start();
+		twoClockPaneThread.start();
 		device.passShaker(shaker);
 		while(true)
 		{
