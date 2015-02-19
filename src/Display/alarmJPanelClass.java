@@ -184,21 +184,28 @@ public class alarmJPanelClass extends JPanel implements Runnable
 		{
             public void actionPerformed(ActionEvent e)
             {
-            	if(!settingMode)
+            	if(soloAlarm.isAlarmActive())
             	{
-            		parent.swapSelectedPanel();
+            		soloAlarm.stopAlarm();
             	}
             	else
             	{
-            		if(alarmSettingsPosition == 3)
-            		{
-            			alarmModePosition++;
-            			if(alarmModePosition == 3)
-            			{
-            				alarmModePosition = 0;
-            			}
-            		}
-            		increaseSelectedByOne();
+            		if(!settingMode)
+                	{
+                		parent.swapSelectedPanel();
+                	}
+                	else
+                	{
+                		if(alarmSettingsPosition == 2)
+                		{
+                			alarmModePosition++;
+                			if(alarmModePosition == 4)
+                			{
+                				alarmModePosition = 0;
+                			}
+                		}
+                		increaseSelectedByOne();
+                	}
             	}
             }
         });
@@ -212,9 +219,16 @@ public class alarmJPanelClass extends JPanel implements Runnable
 			@Override
 		    public void mousePressed(MouseEvent e) 
 			{
-            	if(!settingMode)
+            	if(soloAlarm.isAlarmActive())
             	{
-            		pressTimer.start();
+            		soloAlarm.stopAlarm();
+            	}
+            	else
+            	{
+                	if(!settingMode)
+                	{
+                		pressTimer.start();
+                	}
             	}
 		    }
 		 
@@ -228,13 +242,20 @@ public class alarmJPanelClass extends JPanel implements Runnable
 		{
             public void actionPerformed(ActionEvent e)
             {
-            	if(settingMode)
+            	if(soloAlarm.isAlarmActive())
             	{
-    		    	if(!doOnce)
-    		    	{
-                		alarmSettingsPosition++;
-    		    	}
-    		    	doOnce=false;
+            		soloAlarm.stopAlarm();
+            	}
+            	else
+            	{
+                	if(settingMode)
+                	{
+        		    	if(!doOnce)
+        		    	{
+                    		alarmSettingsPosition++;
+        		    	}
+        		    	doOnce=false;
+                	}
             	}
             }
         });
@@ -276,24 +297,28 @@ public class alarmJPanelClass extends JPanel implements Runnable
     	    	{
     	        	case 0:
     	        	{	
+    	        		System.out.println("1-1");
     	        		soloAlarm.setAlarmOn();
     	        		soloAlarm.setSoundOn();
     	        		break;
     	        	}
     	        	case 1:
     	    		{
+    	    			System.out.println("0-1");
     	    			soloAlarm.setAlarmOff();
     	        		soloAlarm.setSoundOn();
     	    			break;
     	    		}
     	        	case 2:
     	    		{
+    	    			System.out.println("1-0");
     	    			soloAlarm.setAlarmOn();
     	        		soloAlarm.setSoundOff();
     	    			break;
     	    		}
     	        	case 3:
     	    		{
+    	    			System.out.println("0-0");
     	    			soloAlarm.setAlarmOff();
     	        		soloAlarm.setSoundOff();
     	    			break;
@@ -318,7 +343,7 @@ public class alarmJPanelClass extends JPanel implements Runnable
 				alarmLabel.setIcon(new ImageIcon(offAlarmMarker));
 			}
 			
-			if(soloAlarm.isAlarmOn())
+			if(soloAlarm.isSoundOn())
 			{
 				soundLabel.setIcon(new ImageIcon(onSoundMarker));
 			}

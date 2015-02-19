@@ -136,7 +136,10 @@ public class Alarm implements Runnable
 		{
 			if(checkMinutes())
 			{
-				startAlarm = true;
+				if(isAlarmOn() || isSoundOn())
+				{
+					startAlarm = true;
+				}
 			}
 		}
 	}
@@ -148,6 +151,9 @@ public class Alarm implements Runnable
 	
 	public void stopAlarm()
 	{
+		setSoundOff();
+		setAlarmOff();
+		windowShaker.stopShake();
 		startAlarm = false;
 		soundDurationCounter = 0;
 	}
@@ -192,7 +198,7 @@ public class Alarm implements Runnable
 					}
 				}
 				soundDurationCounter++;
-				if(soundDurationCounter > 50)
+				if(soundDurationCounter > 600)
 				{
 					startAlarm = false;
 					windowShaker.stopShake();
