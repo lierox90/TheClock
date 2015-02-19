@@ -51,6 +51,16 @@ public class Device implements Runnable
 	{
 		return Device.alarm;
 	}
+	
+	public void isAlarmActive()
+	{
+		Device.alarm.isAlarmActive();
+	}
+	
+	public void stopAlarm()
+	{
+		Device.alarm.stopAlarm();
+	}
 
 	@Override
 	public void run()

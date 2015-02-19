@@ -10,6 +10,7 @@ public class Clock implements Runnable
 	private DateFormat formatter;
 	private Date currentDate;
 	private boolean twentyOrTwelve = true;
+	private boolean initialized = false;
 	private Device device;
 
 	public Clock(Device overDevice)
@@ -75,11 +76,6 @@ public class Clock implements Runnable
 	    }
 	}
 	
-	public boolean getMode()
-	{
-		return this.twentyOrTwelve;
-	}
-	
 	public int getSeconds()
 	{
 		return this.seconds;
@@ -130,6 +126,11 @@ public class Clock implements Runnable
 	    }
 	}
 	
+	public boolean isInitialised()
+	{
+		return this.initialized;
+	}
+	
 	private void getTime()
 	{
 		try
@@ -165,6 +166,7 @@ public class Clock implements Runnable
 	public void run() 
 	{	
 		getTime();
+		this.initialized = true;
 		while(true)
 		{
 			incrementTime();

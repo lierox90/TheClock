@@ -2,26 +2,17 @@ package Engine;
 
 public class Alarm implements Runnable
 {
-	private int hours = 0, minutes = 0, seconds = 0;
+	private int hours = 0, minutes = 0;
 	private int soundDurationCounter=0;
 	private boolean isOn = false;
 	private boolean isSound = false;
 	private boolean startAlarm = false;
+	private boolean amMode = true;
 	private Clock soloClock;
 	
 	public Alarm(Clock clock)
 	{
 		this.soloClock = clock;
-	}
-	
-	public void incSeconds()
-	{
-		this.seconds++;
-		if(this.seconds == 60)
-		{ 
-			this.seconds = 0;
-		}
-		setAlarmOn();
 	}
 	
 	public void incMinutes()
@@ -32,6 +23,7 @@ public class Alarm implements Runnable
 			this.minutes = 0;
 		}
 		setAlarmOn();
+		setSoundOn();
 	}
 	
 	public void incHours()
@@ -42,6 +34,22 @@ public class Alarm implements Runnable
 	    	  this.hours = 0;
 	    }
 		setAlarmOn();
+		setSoundOn();
+	}
+	
+	public boolean getAlarmMode()
+	{
+		return this.amMode;
+	}
+	
+	public int getMinutes()
+	{
+		return this.minutes;
+	}
+	
+	public int getHours()
+	{
+		return this.hours;
 	}
 	
 	public void setAlarmOn()
@@ -92,25 +100,13 @@ public class Alarm implements Runnable
 		return false;
 	}
 	
-	private boolean checkSeconds()
-	{
-		if(this.seconds == soloClock.getSeconds())
-		{
-			return true;
-		}
-		return false;
-	}
-	
 	private void checkTime()
 	{
 		if(checkHours())
 		{
 			if(checkMinutes())
 			{
-				if(checkSeconds())
-				{
-					startAlarm = true;
-				}
+				startAlarm = true;
 			}
 		}
 	}
@@ -130,14 +126,40 @@ public class Alarm implements Runnable
 	public void run()
 	{
 		while(true)
-		{
-			checkTime();
+		{	
+			if(soloClock.isInitialised())
+			{
+				checkTime();
+			}
+			if(!soloClock.getHourFormat())
+			{
+				if(this.hours<12)
+				{
+					this.amMode = true;
+				}
+				else
+				{
+					this.amMode = false;
+				}
+			}
 			if(startAlarm)
 			{
-				//play sound
-				System.out.println("SOUND");
+				if(soundDurationCounter%10 == 0)
+				{
+					if(isSoundOn())
+					{
+						//play sound
+						System.out.println("Sound");
+					}
+					
+					if(isAlarmOn())
+					{
+						//popup alarm
+						System.out.println("Popup");
+					}
+				}
 				soundDurationCounter++;
-				if(soundDurationCounter > 100)
+				if(soundDurationCounter > 600)
 				{
 					startAlarm = false;
 					soundDurationCounter = 0;

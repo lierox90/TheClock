@@ -274,7 +274,7 @@ public class clockJPanelClass extends JPanel implements Runnable
 		hoursLabel.setBounds(10, 10, 90, 90);
 		hoursLabel.setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 1));
 		hoursLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		hoursLabel.setFont(new Font("Calibri", Font.PLAIN, 70));
+		hoursLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
 		this.add(hoursLabel);
 		//Minutes Label
 		minutesLabel = new JLabel();
@@ -329,14 +329,7 @@ public class clockJPanelClass extends JPanel implements Runnable
     	        	}
     	        	case 1:
     	    		{
-    	    			amMode = true;
     	    			soloClock.set12();
-    	    			break;
-    	    		}
-    	        	case 2:
-    	    		{
-    	    			amMode = false;
-        	    		soloClock.set12();
     	    			break;
     	    		}
     	    	}
@@ -344,12 +337,28 @@ public class clockJPanelClass extends JPanel implements Runnable
     		}
     	}
 	}
+	
+	private void setAmOrPm()
+	{
+		if(!soloClock.getHourFormat())
+		{
+			if(soloClock.getHours()<12)
+			{
+				this.amMode = true;
+			}
+			else
+			{
+				this.amMode = false;
+			}
+		}
+	}
 
 	@Override
 	public void run()
 	{
 		while(true)
 		{
+			setAmOrPm();
 			if( soloClock.isAlarmOn())
 			{
 				alarmLabel.setIcon(new ImageIcon(onAlarmMarker));
@@ -372,7 +381,7 @@ public class clockJPanelClass extends JPanel implements Runnable
 			{
 				blinkTimer.start();
 			}
-			if(soloClock.getMode())
+			if(soloClock.getHourFormat())
 			{
 				if(soloClock.getHours()<10)
 				{
@@ -385,13 +394,41 @@ public class clockJPanelClass extends JPanel implements Runnable
 			}
 			else
 			{
-				if((soloClock.getHours()-12)<10)
+				if(soloClock.getHours() == 0)
 				{
-					hoursLabel.setText("0"+(Integer.toString(soloClock.getHours()-12)));
+					hoursLabel.setText("12");
 				}
 				else
 				{
-					hoursLabel.setText(Integer.toString(soloClock.getHours()-12));
+					if(soloClock.getHours() == 12)
+					{
+						hoursLabel.setText("12");
+					}
+					else
+					{
+						if(soloClock.getHours()<12)
+						{
+							if(soloClock.getHours()<10)
+							{
+								hoursLabel.setText("0"+Integer.toString(soloClock.getHours()));
+							}
+							else
+							{
+								hoursLabel.setText(Integer.toString(soloClock.getHours()));
+							}
+						}
+						else
+						{
+							if(soloClock.getHours()<22)
+							{
+								hoursLabel.setText("0"+Integer.toString(soloClock.getHours()-12));
+							}
+							else
+							{
+								hoursLabel.setText(Integer.toString(soloClock.getHours()-12));
+							}
+						}
+					}
 				}
 			}
 			
@@ -411,6 +448,22 @@ public class clockJPanelClass extends JPanel implements Runnable
 			else
 			{
 				secondsLabel.setText(Integer.toString(soloClock.getSeconds()));
+			}
+			
+			if(soloClock.getHourFormat())
+			{
+				amLabel.setText("");
+			}
+			else
+			{
+				if(amMode)
+				{
+					amLabel.setText("AM");
+				}
+				else
+				{
+					amLabel.setText("PM");
+				}
 			}
 		}
 	}
