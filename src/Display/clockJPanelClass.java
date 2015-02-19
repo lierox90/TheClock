@@ -53,6 +53,21 @@ public class clockJPanelClass extends JPanel implements Runnable
 			pressTimer.stop();
 	    }
 	});
+	private Timer incrementTimer = new Timer(150, new ActionListener() 
+	{
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(clockSettingsPosition == 3)
+    		{
+    			clockModePosition++;
+    			if(clockModePosition == 2)
+    			{
+    				clockModePosition = 0;
+    			}
+    		}
+    		increaseSelectedByOne();
+	    }
+	});
 	private Timer blinkTimer = new Timer(500, new ActionListener() 
 	{
 		public void actionPerformed(ActionEvent e) 
@@ -73,10 +88,7 @@ public class clockJPanelClass extends JPanel implements Runnable
 	        	}
 	        	case 1:
 	    		{
-	        		if(!secondsLabel.isVisible())
-		        	{
-	        			secondsLabel.setVisible(true);
-		        	}
+	    			secondsLabel.setVisible(true);
 	        		if(minutesLabel.isVisible())
 		        	{
 	        			minutesLabel.setVisible(false);
@@ -89,10 +101,8 @@ public class clockJPanelClass extends JPanel implements Runnable
 	    		}
 	        	case 2:
 	    		{
-	        		if(!minutesLabel.isVisible())
-		        	{
-	        			minutesLabel.setVisible(true);
-		        	}
+	    			secondsLabel.setVisible(true);
+	    			minutesLabel.setVisible(true);
 	        		if(hoursLabel.isVisible())
 		        	{
 	        			hoursLabel.setVisible(false);
@@ -105,10 +115,9 @@ public class clockJPanelClass extends JPanel implements Runnable
 	    		}
 	        	case 3:
 	    		{
-	    			if(!hoursLabel.isVisible())
-		        	{
-	        			hoursLabel.setVisible(true);
-		        	}
+	    			secondsLabel.setVisible(true);
+	    			minutesLabel.setVisible(true);
+	    			hoursLabel.setVisible(true);
 	    			if(soloClock.getHourFormat())
 	    			{
     					amLabel.setText("");
@@ -136,22 +145,10 @@ public class clockJPanelClass extends JPanel implements Runnable
 	    		}	
 	        	default:
 	    		{
-	    			if(!secondsLabel.isVisible())
-		        	{
-	        			secondsLabel.setVisible(true);
-		        	}
-	    			if(!minutesLabel.isVisible())
-		        	{
-	        			minutesLabel.setVisible(true);
-		        	}
-	    			if(!hoursLabel.isVisible())
-		        	{
-	        			hoursLabel.setVisible(true);
-		        	}
-	    			if(!amLabel.isVisible())
-		        	{
-	    				amLabel.setVisible(true);
-		        	}
+	    			secondsLabel.setVisible(true);
+	    			minutesLabel.setVisible(true);
+	    			hoursLabel.setVisible(true);
+	    			amLabel.setVisible(true);
 	    			if(!soloClock.getHourFormat())
 	    			{
 	    				if(amMode)
@@ -210,7 +207,7 @@ public class clockJPanelClass extends JPanel implements Runnable
             		if(clockSettingsPosition == 3)
             		{
             			clockModePosition++;
-            			if(clockModePosition == 3)
+            			if(clockModePosition == 2)
             			{
             				clockModePosition = 0;
             			}
@@ -219,6 +216,23 @@ public class clockJPanelClass extends JPanel implements Runnable
             	}
             }
         });
+		this.buttonA.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+		    public void mousePressed(MouseEvent e) 
+			{
+            	if(settingMode)
+            	{
+            		incrementTimer.start();
+            	}
+		    }
+		 
+		    @Override
+		    public void mouseReleased(MouseEvent e) 
+		    {
+		    	incrementTimer.stop();
+		    }
+		});
 		this.buttonA.setFocusable(false);
 		this.add(buttonA);
 		//Button B

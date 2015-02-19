@@ -58,6 +58,21 @@ public class twoClocksJPanelClass extends JPanel implements Runnable
 			pressTimer.stop();
 	    }
 	});
+	private Timer incrementTimer = new Timer(150, new ActionListener() 
+	{
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(clockSettingsPosition == 3)
+    		{
+    			clockModePosition++;
+    			if(clockModePosition == 2)
+    			{
+    				clockModePosition = 0;
+    			}
+    		}
+    		increaseSelectedByOne();
+	    }
+	});
 	private Timer blinkTimer = new Timer(500, new ActionListener() 
 	{
 		public void actionPerformed(ActionEvent e) 
@@ -77,11 +92,8 @@ public class twoClocksJPanelClass extends JPanel implements Runnable
 	    			break;
 	    		}
 	        	case 1:
-	    		{
-	        		if(!minutesLabel2.isVisible())
-		        	{
-	        			minutesLabel2.setVisible(true);
-		        	}
+	    		{	
+	    			minutesLabel2.setVisible(true);
 	        		if(hoursLabel2.isVisible())
 		        	{
 	        			hoursLabel2.setVisible(false);
@@ -94,14 +106,8 @@ public class twoClocksJPanelClass extends JPanel implements Runnable
 	    		}
 	        	default:
 	    		{
-	    			if(!minutesLabel2.isVisible())
-		        	{
-	        			minutesLabel2.setVisible(true);
-		        	}
-	    			if(!hoursLabel2.isVisible())
-		        	{
-	        			hoursLabel2.setVisible(true);
-		        	}
+	    			minutesLabel2.setVisible(true);
+	    			hoursLabel2.setVisible(true);
 	    			if(!duoClock.getHourFormat())
 	    			{
 	    				if(amMode2)
@@ -174,6 +180,23 @@ public class twoClocksJPanelClass extends JPanel implements Runnable
             	}
             }
         });
+		this.buttonA.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+		    public void mousePressed(MouseEvent e) 
+			{
+            	if(settingMode)
+            	{
+            		incrementTimer.start();
+            	}
+		    }
+		 
+		    @Override
+		    public void mouseReleased(MouseEvent e) 
+		    {
+		    	incrementTimer.stop();
+		    }
+		});
 		this.buttonA.setFocusable(false);
 		this.add(buttonA);
 		//Button B

@@ -54,6 +54,21 @@ public class alarmJPanelClass extends JPanel implements Runnable
 			pressTimer.stop();
 	    }
 	});
+	private Timer incrementTimer = new Timer(150, new ActionListener() 
+	{
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(alarmSettingsPosition == 2)
+    		{
+    			alarmModePosition++;
+    			if(alarmModePosition == 4)
+    			{
+    				alarmModePosition = 0;
+    			}
+    		}
+    		increaseSelectedByOne();
+	    }
+	});
 	private Timer blinkTimer = new Timer(500, new ActionListener() 
 	{
 		public void actionPerformed(ActionEvent e) 
@@ -209,6 +224,30 @@ public class alarmJPanelClass extends JPanel implements Runnable
             	}
             }
         });
+		this.buttonA.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+		    public void mousePressed(MouseEvent e) 
+			{
+				if(soloAlarm.isAlarmActive())
+            	{
+            		soloAlarm.stopAlarm();
+            	}
+            	else
+            	{
+            		if(settingMode)
+                	{
+                		incrementTimer.start();
+                	}
+            	}
+		    }
+			
+			@Override
+		    public void mouseReleased(MouseEvent e) 
+		    {
+		    	incrementTimer.stop();
+		    }
+		});
 		this.buttonA.setFocusable(false);
 		this.add(buttonA);
 		//Button B

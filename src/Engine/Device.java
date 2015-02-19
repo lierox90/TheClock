@@ -78,9 +78,9 @@ public class Device implements Runnable
 	@Override
 	public void run()
 	{
-		AlarmThread.start();
-		FirstClockThread.start();
 		SecondClockThread.start();
+		FirstClockThread.start();
+		AlarmThread.start();
 		StoperThread.start();
 		DateThread.start();
 	}
